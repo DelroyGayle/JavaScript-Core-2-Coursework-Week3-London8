@@ -7,8 +7,20 @@ const inputsValuesSelector = document.querySelector(".inputs-Values")
 const maxNumberOfTries = 7
 
 let randomNumber = Math.floor(Math.random() * 100 + 1);
-let userTriesTaken;
+let userTriesTaken = 0;
 let guessButtonEnabled = false;
+setup()
+
+function userSuccess(message) {
+      userTriesTaken = maxNumberOfTries - userTriesTaken + 1;
+      let successMessage = "It took you " + userTriesTaken + " "
+      successMessage += (userTriesTaken === 1) ? "try" : "tries"
+
+      triesOutputSelector.innerText = successMessage;
+      message.innerText = "Guess is correct. You win!"
+  
+      buttonGuessSelector.removeEventListener("click", guessNumber); // Disable Guess Button
+}
 
 function guessNumber() {
   let message = finalOutputSelector;
@@ -25,14 +37,7 @@ function guessNumber() {
       // !!! USER AS GUESSED THE NUMBER !!!                  
       // If the user has guessed the random number correctly print out the randomNumber with a message 
       // "Guess is correct. You win!"
-      userTriesTaken = maxNumberOfTries - userTriesTaken + 1;
-      let successMessage = "It took you " + userTriesTaken + " "
-      successMessage += (userTriesTaken === 1) ? "try" : "tries"
-
-      triesOutputSelector.innerText = successMessage;
-      message.innerText = "Guess is correct. You win!"
-  
-      buttonGuessSelector.removeEventListener("click", guessNumber); // Disable Guess Button
+      userSuccess(message)
       return
   }
 
@@ -117,6 +122,3 @@ function setup() {
    userTriesTaken = maxNumberOfTries;
    guessButtonEnabled = true;
 }
-
-
-setup()

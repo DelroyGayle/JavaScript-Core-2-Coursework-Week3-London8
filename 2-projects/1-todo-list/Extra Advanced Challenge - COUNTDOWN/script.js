@@ -33,7 +33,7 @@ function trashFunction() {
   let getParent = this.parentElement; // this is the SPAN
   // Have to remove the other EventListener
   let getChild = getParent.firstChild;
-  getChild.removeEventListener("click", checkFunction);
+  getChild.removeEventListener("click", trashFunction);
   
   // Now remove the element
   getParent = getParent.parentElement; // this is the LI  
